@@ -146,9 +146,10 @@ class Game {
         // Else if isOver is true AND p2 health is <= 0 then update message variable  to 'p2 WINS!'
         else if (gameObject.isOver === true && p2.health <= 0) {
             message = 'p1 WINS!'
-
         }
         // Play victory sound
+        var audio = new Audio('sounds/victory.mp3');
+        audio.play()
 
         // Return message variable 
         return message;
@@ -159,11 +160,13 @@ class Game {
     reset(p1, p2) {
         // set p1 health and p2 health back to 100 and isOver back to false and 
         // clear resultDiv.innerText and don't forget to updateGame()
+        var audio = new Audio('sounds/restart.mp3')
         p1.health = 100
         p2.health = 100
         gameObject.isOver = false
         resultDiv.innerText = ''
         updateGame(p1, p2, gameObject.isOver)
+        audio.play();
 
     }
 
@@ -210,45 +213,48 @@ let gameState;
 // ** Player 1 Controls **
 document.addEventListener('keydown', function (e) {
     flag = false
+    var audio = new Audio('sounds/fastpunch.mp3');
     // if you press Q AND the enemy health is greater than 0 AND isOver is still false then strike()
     if (e.key.toLowerCase() === 'q' && p2.health > 0 && gameObject.isOver === false) {
         console.log('Q', p1.strike(p1, p2, p1.attackDmg))
+        audio.play();
     }
-
-    // After striking then play attack sound
-
 });
 
 document.addEventListener('keydown', function (e) {
     flag = false
-
+    var audio = new Audio('sounds/quickheal.mp3');
+    
     // if you press a AND the player health is greater than 0 AND isOver is still false then strike()
     if (e.key.toLowerCase() === 'a' && (p1.health > 0 && p1.health < 100) && gameObject.isOver === false) {
         console.log('A', p1.heal(p1))
+        audio.play();
     }
-
-    // After healing then play heal sound
-
+    
 });
 
 // // ** Player 2 Controls **
 document.addEventListener('keydown', function (e) {
     flag = true
-
+    var audio = new Audio('sounds/quickhit.mp3');
+    
     // if you press p AND enemy health is greater than 0 AND isOver is still false then stike()
     if (e.key.toLowerCase() === 'p' && p1.health > 0 && gameObject.isOver === false) {
         console.log('p', p2.strike(p2, p1, p2.attackDmg))
+        audio.play();
     }
-
+    
     // After striking then play attack sound
-
+    
 });
 
 document.addEventListener('keydown', function (e) {
     flag = true
+    var audio = new Audio('sounds/fastheal.mp3');
     // if you press l AND the player health is greater than 0 AND isOver is still false then heal()
     if (e.key.toLowerCase() === 'l' && (p2.health > 0 && p2.health < 100) && gameObject.isOver === false) {
         console.log('A', p2.heal(p2))
+        audio.play();
     }
 
     // After healing then play heal sound
